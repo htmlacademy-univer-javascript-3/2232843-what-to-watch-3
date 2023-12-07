@@ -1,16 +1,16 @@
-import {FilmCard, Props as FilmCardType} from '../../film-card/film-card.tsx';
+import {FilmCard, TFilmCard} from '../../film-card/film-card.tsx';
 
 
-const dataFilmCard: FilmCardType = {
+const dataFilmCard: TFilmCard = {
   previewSrc: 'img/snatch.jpg',
   title: 'Snatch',
   link: 'film-page.html'
 };
 
 export type Props = {
-  filmTitle: string;
-  filmGenre: string;
-  filmPromoDate: number;
+  filmTitle: string,
+  filmGenre: string,
+  filmPromoDate: number
 }
 
 export function Main(props: Props) {

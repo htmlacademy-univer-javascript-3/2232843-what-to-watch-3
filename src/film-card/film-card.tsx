@@ -1,8 +1,10 @@
-export type Props = {
-  previewSrc: string;
-  title: string;
-  link: string;
+export type TFilmCard = {
+  previewSrc: string,
+  title: string,
+  link: string
 }
+
+type Props = TFilmCard;
 
 export function FilmCard(props: Props) {
   const {previewSrc, title, link} = props;
