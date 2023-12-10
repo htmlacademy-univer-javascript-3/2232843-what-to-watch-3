@@ -9,6 +9,6 @@ type Props = {
 };
 
 export function CheckAuth(props: Props): JSX.Element {
-  const {isAuth = false, children} = props;
+  const {isAuth = true, children} = props;
   return isAuth ? children : <Navigate to={RoutePathname.MAIN} />;
 }
