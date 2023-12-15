@@ -17,7 +17,7 @@ export function ReviewForm() {
           {Array.from({length: 10}).map((_, index) => {
             const value = 10 - index;
             return (
-              <Fragment key={index}>
+              <Fragment key={value}>
                 <input
                   className="rating__input"
                   id={`start-${value}`}

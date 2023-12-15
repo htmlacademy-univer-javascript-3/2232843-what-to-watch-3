@@ -1,3 +1,5 @@
+import {reviews} from './reviews';
+
 export const FILMS = [
   {
     id: '1',
@@ -11,7 +13,9 @@ export const FILMS = [
     raiting: 6.5,
     starring: ['1Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'and other'],
     title: 'The Grand Budapest Hotel',
-    year: 2018
+    year: 2018,
+	minutes: 135,
+	reviews: reviews
   },
   {
     id: '2',
@@ -25,7 +29,9 @@ export const FILMS = [
     raiting: 8.0,
     starring: ['Some Actor 2'],
     title: 'Bohemian Rhapsody',
-    year: 2018
+    year: 2018,
+	minutes: 104,
+	reviews: reviews
   },
   {
     id: '3',
@@ -39,7 +45,9 @@ export const FILMS = [
     raiting: 3.9,
     starring: ['Some Actor 3'],
     title: 'Macbeth',
-    year: 2015
+    year: 2015,
+	minutes: 98,
+	reviews: reviews
   },
   {
     id: '4',
@@ -53,7 +61,9 @@ export const FILMS = [
     raiting: 7.5,
     starring: ['Some Actor 4'],
     title: 'Aviator',
-    year: 2004
+    year: 2004,
+	minutes: 112,
+	reviews: reviews
   },
   {
     id: '5',
@@ -67,7 +77,9 @@ export const FILMS = [
     raiting: 5.3,
     starring: ['Some Actor 5' ],
     title: 'What We Do in the Shadows',
-    year: 2014
+    year: 2014,
+	minutes: 106,
+	reviews: reviews
   },
   {
     id: '6',
@@ -81,7 +93,9 @@ export const FILMS = [
     raiting: 8.0,
     starring: ['Some Actor 6'],
     title: 'Revenant',
-    year: 2015
+    year: 2015,
+	minutes: 133,
+	reviews: reviews
   },
   {
     id: '7',
@@ -95,7 +109,9 @@ export const FILMS = [
     raiting: 6.7,
     starring: ['Some Actor 7'],
     title: 'Johnny English',
-    year: 2003
+    year: 2003,
+	minutes: 123,
+	reviews: reviews
   },
   {
     id: '8',
@@ -109,6 +125,8 @@ export const FILMS = [
     raiting: 9.9,
     starring: ['Some Actor 8'],
     title: 'Pulp Fiction',
-    year: 1994
+    year: 1994,
+	minutes: 119,
+	reviews: reviews
   },
 ];
