@@ -45,14 +45,14 @@ export function App(props: Props) {
               element={<AddReview films={films}/>}
             />
             <Route
-              path={`${RoutePathname.PLAYER}`}
+              path={RoutePathname.PLAYER}
               element={<Player {...player}/>}
             />
           </Route>
+          <Route path={RoutePathname.NOT_FOUND} element={<NotFound/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
-
   );
 }

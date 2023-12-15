@@ -23,6 +23,7 @@ export function FilmsList(props: Props) {
           key={film.id}
           onMouseEnter={() => handleMouseEnter(film)}
           onMouseLeave={handleMouseLeave}
+		  isActive={activeFilm === film}
           {...film}
         />
       ))}

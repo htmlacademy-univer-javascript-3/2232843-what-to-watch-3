@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, Navigate} from 'react-router-dom';
 import {Header} from '../../components/header';
 import {TFilmCard} from '../../types';
 import {ReviewForm} from '../../components/review-form';
@@ -11,9 +11,12 @@ type Props = {
 
 export function AddReview(props: Props) {
   const {films} = props;
-  const {id = ''} = useParams();
+  const {id} = useParams();
   const film = films.find((f) => f.id === id);
-  const {title, preview, poster} = film as TFilmCard;
+  if (!(film && id)) {
+    return <Navigate to={`/${RoutePathname.NOT_FOUND}`}/>;
+  }
+  const {title, preview, poster} = film;
   const breadcrumbs = (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">

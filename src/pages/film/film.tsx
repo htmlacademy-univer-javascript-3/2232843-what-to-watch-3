@@ -1,4 +1,4 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, Navigate} from 'react-router-dom';
 import {Header} from '../../components/header';
 import {Footer} from '../../components/footer';
 import {FilmsList} from '../../components/films-list';
@@ -16,7 +16,7 @@ export function Film(props: Props) {
   const {id = ''} = useParams();
   const film = films.find((f) => f.id === id);
   if (!film) {
-    return null;
+    return <Navigate to={`/${RoutePathname.NOT_FOUND}`}/>;
   }
   const {
     title,
