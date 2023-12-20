@@ -9,16 +9,28 @@ import {NotFound} from '../pages/not-found';
 import {CheckAuth} from '../check-auth';
 import {RoutePathname} from '../constants';
 import {ScrollToTop} from '../components/scroll-to-top';
-import {TFilmCard, TPlayer} from '../types';
+import {TPlayer} from '../types';
+import {Provider} from 'react-redux';
+import {store} from '../store';
+import {useFilms} from '../hooks';
 
 
 type Props = {
-  films: TFilmCard[],
   player: TPlayer
 };
 
 export function App(props: Props) {
-  const {films, player} = props;
+  const {player} = props;
+  return (
+    <Provider store={store}>
+      <Router player={player} />
+    </Provider>
+  );
+}
+
+function Router(props: Props) {
+  const {player} = props;
+  const films = useFilms();
   return (
     <BrowserRouter>
       <ScrollToTop>

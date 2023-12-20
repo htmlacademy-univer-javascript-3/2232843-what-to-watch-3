@@ -7,3 +7,5 @@ export const enum RoutePathname {
   PLAYER = 'player',
   NOT_FOUND='404'
 }
+
+export const ALL_GENRES = 'All genres';
