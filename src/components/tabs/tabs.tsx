@@ -3,28 +3,28 @@ import {Link, useLocation} from 'react-router-dom';
 import {TabOverview} from '../../components/tabs/tab-overview';
 import {TabReviews} from '../../components/tabs/tab-reviews';
 import {TabDetails} from '../../components/tabs/tab-details';
-import {TFilmCard} from '../../types';
-import {TAB, TABS} from './constants';
+import {TFilm} from '../../types';
+import {Tab, TABS} from './constants';
 
 
 type Props = {
-  film: TFilmCard
+  film: TFilm
 }
 
 export function Tabs(props: Props) {
   const {film} = props;
   const {reviews} = film;
   const {pathname, hash} = useLocation();
-  const [currentTab, setCurrentTab] = useState(hash || TAB.overview);
+  const [currentTab, setCurrentTab] = useState(hash || Tab.overview);
   useEffect(() => {
     switch (hash) {
-      case TAB.overview:
-      case TAB.reviews:
-      case TAB.details:
+      case Tab.overview:
+      case Tab.reviews:
+      case Tab.details:
         setCurrentTab(hash);
         break;
       default:
-        setCurrentTab(TAB.overview);
+        setCurrentTab(Tab.overview);
     }
   }, [hash]);
   return (
@@ -46,9 +46,9 @@ export function Tabs(props: Props) {
           })}
         </ul>
       </nav>
-      {currentTab === TAB.overview && <TabOverview film={film}/>}
-      {currentTab === TAB.reviews && <TabReviews reviews={reviews}/>}
-      {currentTab === TAB.details && <TabDetails film={film}/>}
+      {currentTab === Tab.overview && <TabOverview film={film}/>}
+      {currentTab === Tab.reviews && <TabReviews reviews={reviews}/>}
+      {currentTab === Tab.details && <TabDetails film={film}/>}
     </>
   );
 }

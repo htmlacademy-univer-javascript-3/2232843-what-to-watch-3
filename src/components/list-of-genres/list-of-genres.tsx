@@ -15,7 +15,7 @@ export function ListOfGenres(props: Props) {
   const genre = useAppSelector((state) => state.genre);
   const dispatch = useAppDispatch();
   const handleClick = useCallback(
-    (g: string) => dispatch(changeGenre(g)),
+    (g: string) => () => dispatch(changeGenre(g)),
     [dispatch]
   );
   const listOfGenres = useMemo(() => {
@@ -34,7 +34,7 @@ export function ListOfGenres(props: Props) {
           <li key={filmGenre} className={className}>
             <button
               type="button"
-              onClick={() => handleClick(filmGenre)}
+              onClick={handleClick(filmGenre)}
               className="catalog__genres-link clean-button"
             >
               {filmGenre}

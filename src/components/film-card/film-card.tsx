@@ -13,13 +13,13 @@ type Props = TFilmCard & {
 
 export function FilmCard(props: Props) {
   const {
-    preview,
-    title,
+    previewImage,
+    name,
     id,
     onMouseEnter,
     onMouseLeave,
     isActive,
-    videoSrc
+    previewVideoLink
   } = props;
   return (
     <article
@@ -30,12 +30,12 @@ export function FilmCard(props: Props) {
       <div className="small-film-card__image film-preview">
         {isActive && (
           <VideoPlayer
-            src={videoSrc}
-            preview={preview}
+            src={previewVideoLink}
+            preview={previewImage}
           />
         )}
         {!isActive && (
-          <img src={preview} alt={title}/>
+          <img src={previewImage} alt={name}/>
         )}
       </div>
       <h3 className="small-film-card__title">
@@ -43,7 +43,7 @@ export function FilmCard(props: Props) {
           to={`/${RoutePathname.FILMS}/${id}`}
           className="small-film-card__link"
         >
-          {title}
+          {name}
         </Link>
       </h3>
     </article>

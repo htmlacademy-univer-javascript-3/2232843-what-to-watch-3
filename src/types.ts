@@ -1,26 +1,46 @@
-export type TReview = {
-  author: string,
-  date: Date,
-  id: number,
-  raiting: number,
-  text: string
+export type TComment = {
+  comment: string,
+  date: string,
+  id: string,
+  rating: number,
+  user: string
 }
 
-export type TFilmCard = {
+export type TFilm = {
+  backgroundColor: string,
+  backgroundImage: string,
   description: string,
   director: string,
   genre: string,
   id: string,
-  minutes: number,
-  numberOfRatings: number,
-  poster: string,
-  preview: string,
-  raiting: number,
-  reviews: TReview[],
+  isFavorite: boolean,
+  name: string,
+  posterImage: string,
+  rating: number,
+  released: number,
+  runTime: number,
+  scoresCount: number,
   starring: string[],
-  title: string,
-  videoSrc: string,
-  year: number
+  videoSrc: string
+}
+
+export type TFilmCard = {
+  genre: string,
+  id: string,
+  name: string,
+  previewImage: string,
+  previewVideoLink: string
+}
+
+export type TFilmPromo = {
+  backgroundImage: string,
+  genre: string,
+  id: string,
+  isFavorite: boolean,
+  name: string,
+  posterImage: string,
+  released: number,
+  videoLink: string
 }
 
 export type TPlayer = {

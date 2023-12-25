@@ -9,3 +9,10 @@ export const enum RoutePathname {
 }
 
 export const ALL_GENRES = 'All genres';
+
+export enum ReduxStateStatus {
+  pending = 'pending',
+  fulfilled = 'fulfilled',
+  rejected = 'rejected',
+  idle = 'idle'
+}
