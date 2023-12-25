@@ -1,6 +1,9 @@
-import {JSX} from 'react';
-import {Link} from 'react-router-dom';
-import {RoutePathname} from '../../constants';
+import {JSX, useCallback} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {RoutePathname, AuthorizationStatus, ReduxStateStatus} from '../../constants';
+import {useAppDispatch, useAppSelector} from '../../store';
+import {fetchLogout} from '../../store/api'
+import {useSnackbar} from 'notistack';
 
 
 type Props = {
@@ -9,6 +12,26 @@ type Props = {
 
 export function Header(props: Props) {
   const {breadcrumbs} = props;
+  const navigate = useNavigate();
+  const {enqueueSnackbar} = useSnackbar();
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
+  const handleLogout = useCallback(() => {
+    dispatch(fetchLogout()).then((res) => {
+      if (res.meta.requestStatus === ReduxStateStatus.rejected) {
+        enqueueSnackbar(
+          'Inable to logout. Try again later',
+          {variant: 'error'}
+        );
+      } else {
+        navigate(RoutePathname.MAIN);
+      }
+    });
+  }, [navigate, dispatch, enqueueSnackbar]);
+  const handleLogin = useCallback(() => {
+    navigate(`/${RoutePathname.LOGIN}`);
+  }, [navigate]);
   return (
     <header className="page-header film-card__head">
       <div className="logo">
@@ -26,7 +49,16 @@ export function Header(props: Props) {
           </div>
         </li>
         <li className="user-block__item">
-          <Link to={`/${RoutePathname.LOGIN}`} className="user-block__link">Sign out</Link>
+          {isAuthorized && (
+            <div className="user-block__link" onClick={handleLogout}>
+              Sign out
+            </div>
+          )}
+          {!isAuthorized && (
+            <div className="user-block__link" onClick={handleLogin}>
+              Sign in
+            </div>
+          )}
         </li>
       </ul>
     </header>

@@ -6,13 +6,15 @@ import {Film} from '../pages/film';
 import {AddReview} from '../pages/add-review';
 import {Player} from '../pages/player';
 import {NotFound} from '../pages/not-found';
-import {CheckAuth} from '../check-auth';
 import {RoutePathname} from '../constants';
 import {ScrollToTop} from '../components/scroll-to-top';
 import {TPlayer} from '../types';
 import {Provider} from 'react-redux';
-import {store} from '../store';
+import {store, useAppDispatch} from '../store';
 import {SnackbarProvider} from 'notistack';
+import {useEffect} from 'react';
+import {PrivateRoute} from '../components/private-route';
+import {getLogin} from '../store/api';
 
 
 type Props = {
@@ -30,6 +32,10 @@ export function App(props: Props) {
 
 function Router(props: Props) {
   const {player} = props;
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getLogin());
+  }, [dispatch]);
   return (
     <SnackbarProvider>
       <BrowserRouter>
@@ -46,7 +52,7 @@ function Router(props: Props) {
               />
               <Route
                 path={RoutePathname.MY_LIST}
-                element={<CheckAuth><MyList/></CheckAuth>}
+                element={<PrivateRoute><MyList/></PrivateRoute>}
               />
               <Route
                 path={`${RoutePathname.FILMS}/:id`}

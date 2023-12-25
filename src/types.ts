@@ -46,3 +46,15 @@ export type TFilmPromo = {
 export type TPlayer = {
   src: string
 }
+
+export type TLoginRequest = {
+  email: string,
+  password: string
+}
+
+export type TUser = {
+  name: string,
+  avatarUrl: string,
+  email: string,
+  token: string
+}

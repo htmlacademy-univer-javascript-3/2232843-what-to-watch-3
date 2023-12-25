@@ -1,9 +1,42 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Footer} from '../../components/footer';
-import {RoutePathname} from '../../constants';
+import {RoutePathname, ReduxStateStatus} from '../../constants';
+import {FormEvent, useCallback} from 'react';
+import {useSnackbar} from 'notistack';
+import {useAppDispatch} from '../../store';
+import {postLogin} from '../../store/api';
 
+
+interface CustomElements extends HTMLFormControlsCollection {
+  'user-email': HTMLInputElement,
+  'user-password': HTMLInputElement
+}
+
+interface CustomForm extends HTMLFormElement {
+  readonly elements: CustomElements
+}
 
 export function SignIn() {
+  const dispatch = useAppDispatch();
+  const {enqueueSnackbar} = useSnackbar();
+  const navigate = useNavigate();
+  const handleSubmit = useCallback((event: FormEvent<CustomForm>) => {
+    event.preventDefault();
+    const target = event.currentTarget.elements;
+    const email = target['user-email'].value;
+    const password = target['user-password'].value;
+    dispatch(postLogin({email, password})).then((res) => {
+      if (res.meta.requestStatus === ReduxStateStatus.rejected) {
+        enqueueSnackbar(
+          'Unable to sign in. Check entered email and password',
+          {variant: 'error'}
+        );
+      } else {
+        navigate(RoutePathname.MAIN);
+      }
+      return null;
+    });
+  }, [dispatch, navigate, enqueueSnackbar]);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -18,7 +51,7 @@ export function SignIn() {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />

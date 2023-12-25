@@ -16,3 +16,8 @@ export enum ReduxStateStatus {
   rejected = 'rejected',
   idle = 'idle'
 }
+
+export enum AuthorizationStatus {
+  notAuthorized = 'notAuthorized',
+  authorized = 'authorized'
+}

@@ -1,15 +1,17 @@
 import {createAction} from '@reduxjs/toolkit';
 import {TComment, TFilm, TFilmCard, TFilmPromo} from '../../types';
+import {AuthorizationStatus} from '../../constants';
 
 
 export const Action = {
   CHANGE_GENRE: 'genre/change',
-  UPDATE_FILMS: 'film/updateFilms',
+  UPDATE_FILMS: 'film/updateList',
   UPDATE_FILM_PROMO: 'film/updatePromo',
   UPDATE_FILM: 'film/update',
   UPDATE_FILMS_SIMILAR: 'film',
   UPDATE_FILMS_COMMENTS: 'film/updateComments',
-  UPDATE_FAVORITE_FILMS: 'film/updateFavorites'
+  UPDATE_FAVORITE_FILMS: 'film/updateFavorites',
+  UPDATE_AUTHORIZATION_STATUS: 'authorization/updateStatus'
 };
 
 export const changeGenre = createAction(
@@ -57,6 +59,13 @@ export const updateFilmComments = createAction(
 export const updateFavoriteFilms = createAction(
   Action.UPDATE_FAVORITE_FILMS,
   (value: TFilmCard[]): { payload: TFilmCard[] } => ({
+    payload: value
+  })
+);
+
+export const updateAuthorizationStatus = createAction(
+  Action.UPDATE_AUTHORIZATION_STATUS,
+  (value: AuthorizationStatus): { payload: AuthorizationStatus } => ({
     payload: value
   })
 );
