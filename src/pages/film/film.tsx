@@ -3,7 +3,7 @@ import {Header} from '../../components/header';
 import {Footer} from '../../components/footer';
 import {FilmsList} from '../../components/films-list';
 import {MyListButton, PlayButton} from '../../components/buttons';
-import {RoutePathname} from '../../constants';
+import {RoutePathname, AuthorizationStatus} from '../../constants';
 import {Tabs} from '../../components/tabs';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store';
@@ -14,7 +14,12 @@ import {useFetchFilm} from '../../hooks';
 export function Film() {
   const {id = ''} = useParams();
   const dispatch = useAppDispatch();
-  const {film, similarFilms} = useAppSelector((state) => state);
+  const {
+    film,
+    similarFilms,
+    authorizationStatus
+  } = useAppSelector((state) => state);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
   useFetchFilm(id);
   useEffect(() => {
     dispatch(fetchFilmSimilar(id));
@@ -51,12 +56,14 @@ export function Film() {
               <div className="film-card__buttons">
                 <PlayButton/>
                 <MyListButton/>
-                <Link
-                  to={`/${RoutePathname.FILMS}/${id}/${RoutePathname.REVIEW}`}
-                  className="btn film-card__button"
-                >
-                  Add review
-                </Link>
+                {isAuthorized && (
+                  <Link
+                    to={`/${RoutePathname.FILMS}/${id}/${RoutePathname.REVIEW}`}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>

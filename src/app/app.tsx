@@ -60,7 +60,11 @@ function Router(props: Props) {
               />
               <Route
                 path={`${RoutePathname.FILMS}/:id/${RoutePathname.REVIEW}`}
-                element={<AddReview/>}
+                element={(
+                  <PrivateRoute navigateTo={`/${RoutePathname.LOGIN}`}>
+                    <AddReview/>
+                  </PrivateRoute>
+                )}
               />
               <Route
                 path={RoutePathname.PLAYER}

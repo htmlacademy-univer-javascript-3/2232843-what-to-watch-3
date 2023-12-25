@@ -47,12 +47,12 @@ export function AddReview() {
         <Header breadcrumbs={breadcrumbs}/>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
+          <img src={posterImage} alt={`${name} poster`} width="218" height="327"/>
         </div>
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm filmId={id}/>
       </div>
 
     </section>
