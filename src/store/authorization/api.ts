@@ -5,6 +5,7 @@ import {AuthorizationStatus} from '../../constants';
 import {TLoginRequest, TUser} from '../../types';
 import {AppDispatch, State} from '../types';
 import {updateAuthorizationStatus} from './action';
+import {enqueueSnackbar} from 'notistack';
 
 
 export const getLogin = createAsyncThunk<void, undefined, {
@@ -30,10 +31,15 @@ export const postLogin = createAsyncThunk<void, TLoginRequest, {
   extra: AxiosInstance
 }>(
   'postLogin',
-  async (arg, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUser>('/login', arg);
-    saveToken(data.token);
-    dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized));
+  async (arg, {rejectWithValue, dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<TUser>('/login', arg);
+      saveToken(data.token);
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized));
+    } catch (e) {
+      enqueueSnackbar('Unable to sign in. Check entered email and password', {variant: 'error'});
+      return rejectWithValue(e);
+    }
   },
 );
 
@@ -43,10 +49,15 @@ export const fetchLogout = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'fetchLogout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {rejectWithValue, dispatch, extra: api}) => {
     const token = getSavedToken();
-    await api.delete('/logout', {headers: {'X-Token': token}});
-    deleteToken();
-    dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized));
+    try {
+      await api.delete('/logout', {headers: {'X-Token': token}});
+      deleteToken();
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized));
+    } catch (e) {
+      enqueueSnackbar('Unable to sign out. Try again later', {variant: 'error'});
+      return rejectWithValue(e);
+    }
   },
 );

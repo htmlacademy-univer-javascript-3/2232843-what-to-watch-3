@@ -1,21 +1,20 @@
-import {JSX} from 'react';
-import {Link} from 'react-router-dom';
+import {ReactNode} from 'react';
 
 
 type Props = {
-  children: JSX.Element | JSX.Element[],
-  to: string,
-  className: string
+  children: ReactNode,
+  className: string,
+  onClick: () => void
 };
 
 export function Button(props: Props) {
-  const {children, to, className} = props;
+  const {children, className, onClick} = props;
   return (
-    <Link
+    <button
       className={['btn film-card__button', className].join(' ')}
-      to={to}
+      onClick={onClick}
     >
       {children}
-    </Link>
+    </button>
   );
 }

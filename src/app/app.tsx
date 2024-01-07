@@ -8,7 +8,6 @@ import {Player} from '../pages/player';
 import {NotFound} from '../pages/not-found';
 import {RoutePathname} from '../constants';
 import {ScrollToTop} from '../components/scroll-to-top';
-import {TPlayer} from '../types';
 import {Provider} from 'react-redux';
 import {store} from '../store';
 import {SnackbarProvider} from 'notistack';
@@ -18,65 +17,59 @@ import {getLogin} from '../store/authorization/api';
 import {useAppDispatch} from '../store/hooks';
 
 
-type Props = {
-  player: TPlayer
-};
-
-export function App(props: Props) {
-  const {player} = props;
+export function App() {
   return (
     <Provider store={store}>
-      <Router player={player} />
+      <SnackbarProvider>
+        <BrowserRouter>
+          <ScrollToTop>
+            <Router/>
+          </ScrollToTop>
+        </BrowserRouter>
+      </SnackbarProvider>
     </Provider>
   );
 }
 
-function Router(props: Props) {
-  const {player} = props;
+function Router() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getLogin());
   }, [dispatch]);
   return (
-    <SnackbarProvider>
-      <BrowserRouter>
-        <ScrollToTop>
-          <Routes>
-            <Route path={RoutePathname.main}>
-              <Route
-                index
-                element={<Main/>}
-              />
-              <Route
-                path={RoutePathname.login}
-                element={<SignIn/>}
-              />
-              <Route
-                path={RoutePathname.myList}
-                element={<PrivateRoute><MyList/></PrivateRoute>}
-              />
-              <Route
-                path={`${RoutePathname.films}/:id`}
-                element={<Film/>}
-              />
-              <Route
-                path={`${RoutePathname.films}/:id/${RoutePathname.review}`}
-                element={(
-                  <PrivateRoute navigateTo={`/${RoutePathname.login}`}>
-                    <AddReview/>
-                  </PrivateRoute>
-                )}
-              />
-              <Route
-                path={RoutePathname.player}
-                element={<Player {...player}/>}
-              />
-            </Route>
-            <Route path={RoutePathname.notFound} element={<NotFound/>}/>
-            <Route path='*' element={<NotFound/>}/>
-          </Routes>
-        </ScrollToTop>
-      </BrowserRouter>
-    </SnackbarProvider>
+    <Routes>
+      <Route path={RoutePathname.main}>
+        <Route
+          index
+          element={<Main/>}
+        />
+        <Route
+          path={RoutePathname.login}
+          element={<SignIn/>}
+        />
+        <Route
+          path={RoutePathname.myList}
+          element={<PrivateRoute><MyList/></PrivateRoute>}
+        />
+        <Route
+          path={`${RoutePathname.films}/:id`}
+          element={<Film/>}
+        />
+        <Route
+          path={`${RoutePathname.films}/:id/${RoutePathname.review}`}
+          element={(
+            <PrivateRoute navigateTo={`/${RoutePathname.login}`}>
+              <AddReview/>
+            </PrivateRoute>
+          )}
+        />
+        <Route
+          path={RoutePathname.player}
+          element={<Player/>}
+        />
+      </Route>
+      <Route path={RoutePathname.notFound} element={<NotFound/>}/>
+      <Route path="*" element={<NotFound/>}/>
+    </Routes>
   );
 }

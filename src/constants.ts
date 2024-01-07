@@ -21,3 +21,8 @@ export enum AuthorizationStatus {
   notAuthorized = 'notAuthorized',
   authorized = 'authorized'
 }
+
+export enum FilmStatus {
+  addToFavorite = 1,
+  deleteFromFavorite = 0
+}

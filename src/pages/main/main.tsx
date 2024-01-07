@@ -7,7 +7,6 @@ import {useFiltredFilms} from '../../hooks';
 import {useEffect, useState} from 'react';
 import {useSnackbar} from 'notistack';
 import {Loader} from '../../components/loader';
-import {ReduxStateStatus} from '../../constants';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {fetchFilms} from '../../store/films/api';
 import {fetchPromoFilm} from '../../store/film/api';
@@ -24,15 +23,6 @@ export function Main() {
   useEffect(() => {
     setLoading(true);
     dispatch(fetchFilms())
-      .then((res) => {
-        if (res.meta.requestStatus === ReduxStateStatus.rejected) {
-          enqueueSnackbar(
-            'Unable to load films. Try again later',
-            {variant: 'error'}
-          );
-        }
-        return null;
-      })
       .finally(() => {
         setLoading(false);
       });
@@ -41,7 +31,7 @@ export function Main() {
   const filtredFilms = useFiltredFilms();
 let filmPromoContent = null;
   if (promoFilm) {
-    const {name, genre, released, backgroundImage, posterImage} = promoFilm;
+    const {name, genre, released, backgroundImage, posterImage, videoLink, id} = promoFilm;
     filmPromoContent = (
       <section className="film-card">
         <div className="film-card__bg">
@@ -61,8 +51,8 @@ let filmPromoContent = null;
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton/>
-                <MyListButton/>
+                <PlayButton videoLink={videoLink}/>
+                <MyListButton filmId={id}/>
               </div>
             </div>
           </div>

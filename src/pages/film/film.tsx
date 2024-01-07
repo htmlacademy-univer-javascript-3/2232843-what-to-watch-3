@@ -35,7 +35,8 @@ export function Film() {
     backgroundImage,
     genre,
     released,
-    posterImage
+    posterImage,
+    videoLink
   } = film;
   return (
     <>
@@ -54,8 +55,8 @@ export function Film() {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton/>
-                <MyListButton/>
+                <PlayButton videoLink={videoLink} />
+                <MyListButton filmId={id}/>
                 {isAuthorized && (
                   <Link
                     to={`/${RoutePathname.films}/${id}/${RoutePathname.review}`}

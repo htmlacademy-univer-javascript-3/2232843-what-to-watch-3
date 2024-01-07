@@ -1,20 +1,30 @@
-import {useCallback} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {TPlayer} from '../../types';
+import {usePlayer} from '../../hooks';
 
 
-type Props = TPlayer;
 
-export function Player(props: Props) {
-  const {src} = props;
-  const navigate = useNavigate();
-  const handleExit = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
+export function Player() {
+  const {
+    videoRef,
+    videoLink,
+    handleTimeUpdate,
+    handleExit,
+    sliderRef,
+    handleProgressClick,
+    progress,
+    handleTogglePlay,
+    isPlaying,
+    handleToggleFullScreen,
+    timeLeft
+  } = usePlayer();
   return (
     <div className="player">
-      <video src={src} className="player__video" poster="img/player-poster.jpg"></video>
-
+      <video
+        ref={videoRef}
+        src={videoLink}
+        className="player__video"
+        poster="img/player-poster.jpg"
+        onTimeUpdate={handleTimeUpdate}
+      />
       <button
         type="button"
         className="player__exit"
@@ -25,23 +35,31 @@ export function Player(props: Props) {
 
       <div className="player__controls">
         <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+		  <div
+            className="player__time"
+            ref={sliderRef}
+            onClick={handleProgressClick}
+          >
+            <progress
+              className="player__progress"
+              value={progress}
+              max={100}
+            />
+            <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:45:21</div>
+          <div className="player__time-value">{timeLeft}</div>
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button type="button" className="player__play" onClick={handleTogglePlay}>
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={isPlaying ? '#pause' : '#play-s'}></use>
             </svg>
-            <span>Play</span>
+            <span>{isPlaying ? 'Pause' : 'Play'}</span>
           </button>
           <div className="player__name">Transpotting</div>
 
-          <button type="button" className="player__full-screen">
+          <button type="button" className="player__full-screen" onClick={handleToggleFullScreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

@@ -2,7 +2,6 @@ import {Link, useNavigate} from 'react-router-dom';
 import {Footer} from '../../components/footer';
 import {RoutePathname, ReduxStateStatus} from '../../constants';
 import {FormEvent, useCallback} from 'react';
-import {useSnackbar} from 'notistack';
 import {useAppDispatch} from '../../store/hooks';
 import {postLogin} from '../../store/authorization/api';
 
@@ -18,7 +17,6 @@ interface CustomForm extends HTMLFormElement {
 
 export function SignIn() {
   const dispatch = useAppDispatch();
-  const {enqueueSnackbar} = useSnackbar();
   const navigate = useNavigate();
   const handleSubmit = useCallback((event: FormEvent<CustomForm>) => {
     event.preventDefault();
@@ -26,17 +24,12 @@ export function SignIn() {
     const email = target['user-email'].value;
     const password = target['user-password'].value;
     dispatch(postLogin({email, password})).then((res) => {
-      if (res.meta.requestStatus === ReduxStateStatus.rejected) {
-        enqueueSnackbar(
-          'Unable to sign in. Check entered email and password',
-          {variant: 'error'}
-        );
-      } else {
+      if (res.meta.requestStatus !== ReduxStateStatus.rejected) {
         navigate(RoutePathname.main);
       }
       return null;
     });
-  }, [dispatch, navigate, enqueueSnackbar]);
+  }, [dispatch, navigate]);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
