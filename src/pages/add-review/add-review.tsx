@@ -3,12 +3,13 @@ import {Header} from '../../components/header';
 import {ReviewForm} from '../../components/review-form';
 import {RoutePathname} from '../../constants';
 import {useFetchFilm} from '../../hooks';
-import {useAppSelector} from '../../store';
+import {useAppSelector} from '../../store/hooks';
+import {FilmSelector} from '../../store/film/selectors';
 
 
 export function AddReview() {
   const {id = ''} = useParams();
-  const {film} = useAppSelector((state) => state);
+  const film = useAppSelector(FilmSelector.film);
   useFetchFilm(id);
   if (!film) {
     return null;
@@ -19,7 +20,7 @@ export function AddReview() {
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
           <Link
-            to={`/${RoutePathname.FILMS}/${id}`}
+            to={`/${RoutePathname.films}/${id}`}
             className="breadcrumbs__link"
           >
             {name}
@@ -27,7 +28,7 @@ export function AddReview() {
         </li>
         <li className="breadcrumbs__item">
           <Link
-            to={`/${RoutePathname.FILMS}/${id}/${RoutePathname.REVIEW}`}
+            to={`/${RoutePathname.films}/${id}/${RoutePathname.review}`}
             className="breadcrumbs__link"
           >
             Add review

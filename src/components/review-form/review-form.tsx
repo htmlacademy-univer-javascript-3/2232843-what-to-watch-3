@@ -1,13 +1,13 @@
 import {ChangeEvent, Fragment, useCallback, useState, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSnackbar} from 'notistack';
-import {postComments} from '../../store/api';
+import {postComments} from '../../store/film/api';
 import {ReduxStateStatus, RoutePathname} from '../../constants';
-import {useAppDispatch} from '../../store';
+import {useAppDispatch} from '../../store/hooks';
 
 
 const MIN_COMMENT_LENGTH = 50;
-const MAX_COMMENT_LENGTH = 450;
+const MAX_COMMENT_LENGTH = 400;
 
 type Props = {
   filmId: string
@@ -40,7 +40,7 @@ export function ReviewForm(props: Props) {
             {variant: 'error'}
           );
         } else {
-          navigate(`/${RoutePathname.FILMS}/${filmId}#reviews`);
+          navigate(`/${RoutePathname.films}/${filmId}#reviews`);
         }
         return null;
       });

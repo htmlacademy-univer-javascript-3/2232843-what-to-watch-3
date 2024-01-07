@@ -6,19 +6,19 @@ import {MyListButton, PlayButton} from '../../components/buttons';
 import {RoutePathname, AuthorizationStatus} from '../../constants';
 import {Tabs} from '../../components/tabs';
 import {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../store';
-import {fetchFilmSimilar} from '../../store/api';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {fetchFilmSimilar} from '../../store/film/api';
 import {useFetchFilm} from '../../hooks';
+import {FilmSelector} from '../../store/film/selectors';
+import {AuthorizationSelector} from '../../store/authorization/selectors';
 
 
 export function Film() {
   const {id = ''} = useParams();
   const dispatch = useAppDispatch();
-  const {
-    film,
-    similarFilms,
-    authorizationStatus
-  } = useAppSelector((state) => state);
+  const film = useAppSelector(FilmSelector.film);
+  const similarFilms = useAppSelector(FilmSelector.similar);
+  const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
   useFetchFilm(id);
   useEffect(() => {
@@ -58,7 +58,7 @@ export function Film() {
                 <MyListButton/>
                 {isAuthorized && (
                   <Link
-                    to={`/${RoutePathname.FILMS}/${id}/${RoutePathname.REVIEW}`}
+                    to={`/${RoutePathname.films}/${id}/${RoutePathname.review}`}
                     className="btn film-card__button"
                   >
                     Add review

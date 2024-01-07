@@ -6,7 +6,7 @@ export function MyListButton() {
   return (
     <Button
       className="btn--list"
-      to={`/${RoutePathname.MY_LIST}`}
+      to={`/${RoutePathname.myList}`}
     >
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="#add"></use>

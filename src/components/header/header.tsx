@@ -1,9 +1,10 @@
 import {JSX, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {RoutePathname, AuthorizationStatus, ReduxStateStatus} from '../../constants';
-import {useAppDispatch, useAppSelector} from '../../store';
-import {fetchLogout} from '../../store/api'
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {fetchLogout} from '../../store/authorization/api'
 import {useSnackbar} from 'notistack';
+import {AuthorizationSelector} from '../../store/authorization/selectors';
 
 
 type Props = {
@@ -15,7 +16,7 @@ export function Header(props: Props) {
   const navigate = useNavigate();
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
   const handleLogout = useCallback(() => {
     dispatch(fetchLogout()).then((res) => {
@@ -25,17 +26,17 @@ export function Header(props: Props) {
           {variant: 'error'}
         );
       } else {
-        navigate(RoutePathname.MAIN);
+        navigate(RoutePathname.main);
       }
     });
   }, [navigate, dispatch, enqueueSnackbar]);
   const handleLogin = useCallback(() => {
-    navigate(`/${RoutePathname.LOGIN}`);
+    navigate(`/${RoutePathname.login}`);
   }, [navigate]);
   return (
     <header className="page-header film-card__head">
       <div className="logo">
-        <Link to={RoutePathname.MAIN} className="logo__link">
+        <Link to={RoutePathname.main} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>

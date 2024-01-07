@@ -1,7 +1,8 @@
 import {JSX} from 'react';
 import {Navigate} from 'react-router-dom';
 import {AuthorizationStatus, RoutePathname} from '../../constants';
-import {useAppSelector} from '../../store';
+import {useAppSelector} from '../../store/hooks';
+import {AuthorizationSelector} from '../../store/authorization/selectors';
 
 
 type Props = {
@@ -10,8 +11,8 @@ type Props = {
 };
 
 export function PrivateRoute(props: Props): JSX.Element {
-  const {children, navigateTo = RoutePathname.MAIN} = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {children, navigateTo = RoutePathname.main} = props;
+  const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   return authorizationStatus === AuthorizationStatus.notAuthorized
     ? <Navigate to={navigateTo} />
     : children;

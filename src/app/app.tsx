@@ -10,11 +10,12 @@ import {RoutePathname} from '../constants';
 import {ScrollToTop} from '../components/scroll-to-top';
 import {TPlayer} from '../types';
 import {Provider} from 'react-redux';
-import {store, useAppDispatch} from '../store';
+import {store} from '../store';
 import {SnackbarProvider} from 'notistack';
 import {useEffect} from 'react';
 import {PrivateRoute} from '../components/private-route';
-import {getLogin} from '../store/api';
+import {getLogin} from '../store/authorization/api';
+import {useAppDispatch} from '../store/hooks';
 
 
 type Props = {
@@ -41,37 +42,37 @@ function Router(props: Props) {
       <BrowserRouter>
         <ScrollToTop>
           <Routes>
-            <Route path={RoutePathname.MAIN}>
+            <Route path={RoutePathname.main}>
               <Route
                 index
                 element={<Main/>}
               />
               <Route
-                path={RoutePathname.LOGIN}
+                path={RoutePathname.login}
                 element={<SignIn/>}
               />
               <Route
-                path={RoutePathname.MY_LIST}
+                path={RoutePathname.myList}
                 element={<PrivateRoute><MyList/></PrivateRoute>}
               />
               <Route
-                path={`${RoutePathname.FILMS}/:id`}
+                path={`${RoutePathname.films}/:id`}
                 element={<Film/>}
               />
               <Route
-                path={`${RoutePathname.FILMS}/:id/${RoutePathname.REVIEW}`}
+                path={`${RoutePathname.films}/:id/${RoutePathname.review}`}
                 element={(
-                  <PrivateRoute navigateTo={`/${RoutePathname.LOGIN}`}>
+                  <PrivateRoute navigateTo={`/${RoutePathname.login}`}>
                     <AddReview/>
                   </PrivateRoute>
                 )}
               />
               <Route
-                path={RoutePathname.PLAYER}
+                path={RoutePathname.player}
                 element={<Player {...player}/>}
               />
             </Route>
-            <Route path={RoutePathname.NOT_FOUND} element={<NotFound/>}/>
+            <Route path={RoutePathname.notFound} element={<NotFound/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Routes>
         </ScrollToTop>

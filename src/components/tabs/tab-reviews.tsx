@@ -1,7 +1,8 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../store';
-import {fetchFilmComments} from '../../store/api';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {fetchFilmComments} from '../../store/film/api';
+import {FilmSelector} from '../../store/film/selectors';
 
 
 export function TabReviews() {
@@ -11,7 +12,7 @@ export function TabReviews() {
   year: "numeric",
 };
   const {id = ''} = useParams();
-  const reviews = useAppSelector((state) => state.filmsComments);
+  const reviews = useAppSelector(FilmSelector.comments);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFilmComments(id));

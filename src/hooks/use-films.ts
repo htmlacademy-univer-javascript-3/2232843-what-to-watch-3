@@ -1,5 +1,6 @@
-import {useAppSelector} from '../store';
+import {useAppSelector} from '../store/hooks';
+import {FilmsSelector} from '../store/films/selectors';
 
 export function useFilms() {
-  return useAppSelector((state) => state.films);
+  return useAppSelector(FilmsSelector.list);
 }

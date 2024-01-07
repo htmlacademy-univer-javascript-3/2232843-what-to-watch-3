@@ -3,8 +3,8 @@ import {Footer} from '../../components/footer';
 import {RoutePathname, ReduxStateStatus} from '../../constants';
 import {FormEvent, useCallback} from 'react';
 import {useSnackbar} from 'notistack';
-import {useAppDispatch} from '../../store';
-import {postLogin} from '../../store/api';
+import {useAppDispatch} from '../../store/hooks';
+import {postLogin} from '../../store/authorization/api';
 
 
 interface CustomElements extends HTMLFormControlsCollection {
@@ -32,7 +32,7 @@ export function SignIn() {
           {variant: 'error'}
         );
       } else {
-        navigate(RoutePathname.MAIN);
+        navigate(RoutePathname.main);
       }
       return null;
     });
@@ -41,7 +41,7 @@ export function SignIn() {
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <Link to={RoutePathname.MAIN} className="logo__link">
+          <Link to={RoutePathname.main} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>

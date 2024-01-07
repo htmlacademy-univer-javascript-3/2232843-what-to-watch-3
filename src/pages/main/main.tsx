@@ -8,15 +8,19 @@ import {useEffect, useState} from 'react';
 import {useSnackbar} from 'notistack';
 import {Loader} from '../../components/loader';
 import {ReduxStateStatus} from '../../constants';
-import {useAppDispatch, useAppSelector} from '../../store';
-import {fetchFilms, fetchPromoFilm} from '../../store/api';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {fetchFilms} from '../../store/films/api';
+import {fetchPromoFilm} from '../../store/film/api';
+import {FilmsSelector} from '../../store/films/selectors';
+import {FilmSelector} from '../../store/film/selectors';
 
 
 export function Main() {
   const dispatch = useAppDispatch();
   const {enqueueSnackbar} = useSnackbar();
   const [loading, setLoading] = useState(false);
-  const {films, promoFilm} = useAppSelector((state) => state);
+  const films = useAppSelector(FilmsSelector.list);
+  const promoFilm = useAppSelector(FilmSelector.promo);
   useEffect(() => {
     setLoading(true);
     dispatch(fetchFilms())
