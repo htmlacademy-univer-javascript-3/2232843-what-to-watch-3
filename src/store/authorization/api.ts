@@ -17,10 +17,10 @@ export const getLogin = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     const token = getSavedToken();
     try {
-      await api.get<TUser>('/login', {headers: {'X-Token': token}});
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized));
+      const {data} = await api.get<TUser>('/login', {headers: {'X-Token': token}});
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized, data));
     } catch (error) {
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized));
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized, null));
     }
   },
 );
@@ -35,7 +35,7 @@ export const postLogin = createAsyncThunk<void, TLoginRequest, {
     try {
       const {data} = await api.post<TUser>('/login', arg);
       saveToken(data.token);
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized));
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized, data));
     } catch (e) {
       enqueueSnackbar('Unable to sign in. Check entered email and password', {variant: 'error'});
       return rejectWithValue(e);
@@ -54,7 +54,7 @@ export const fetchLogout = createAsyncThunk<void, undefined, {
     try {
       await api.delete('/logout', {headers: {'X-Token': token}});
       deleteToken();
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized));
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.notAuthorized, null));
     } catch (e) {
       enqueueSnackbar('Unable to sign out. Try again later', {variant: 'error'});
       return rejectWithValue(e);

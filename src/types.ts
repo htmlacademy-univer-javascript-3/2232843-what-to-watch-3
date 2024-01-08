@@ -55,6 +55,7 @@ export type TLoginRequest = {
 export type TUser = {
   name: string;
   avatarUrl: string;
+  id: number;
   email: string;
   token: string;
 }

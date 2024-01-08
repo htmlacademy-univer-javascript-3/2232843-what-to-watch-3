@@ -1,5 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {AuthorizationStatus} from '../../constants';
+import {TUser} from '../../types';
 
 
 const Action = {
@@ -8,7 +9,10 @@ const Action = {
 
 export const updateAuthorizationStatus = createAction(
   Action.UPDATE_AUTHORIZATION_STATUS,
-  (value: AuthorizationStatus): { payload: AuthorizationStatus } => ({
-    payload: value
+  (value: AuthorizationStatus, data: TUser | null): {payload: {status: AuthorizationStatus; user: TUser | null}} => ({
+    payload: {
+      status: value,
+      user: data
+    }
   })
 );
