@@ -17,20 +17,6 @@ import {getLogin} from '../store/authorization/api';
 import {useAppDispatch} from '../store/hooks';
 
 
-export function App() {
-  return (
-    <Provider store={store}>
-      <SnackbarProvider>
-        <BrowserRouter>
-          <ScrollToTop>
-            <Router/>
-          </ScrollToTop>
-        </BrowserRouter>
-      </SnackbarProvider>
-    </Provider>
-  );
-}
-
 function Router() {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -71,5 +57,19 @@ function Router() {
       <Route path={RoutePathname.notFound} element={<NotFound/>}/>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
+  );
+}
+
+export function App() {
+  return (
+    <Provider store={store}>
+      <SnackbarProvider>
+        <BrowserRouter>
+          <ScrollToTop>
+            <Router/>
+          </ScrollToTop>
+        </BrowserRouter>
+      </SnackbarProvider>
+    </Provider>
   );
 }

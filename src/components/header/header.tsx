@@ -2,12 +2,12 @@ import {JSX, useCallback} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {RoutePathname, AuthorizationStatus, ReduxStateStatus} from '../../constants';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
-import {fetchLogout} from '../../store/authorization/api'
+import {fetchLogout} from '../../store/authorization/api';
 import {AuthorizationSelector} from '../../store/authorization/selectors';
 
 
 type Props = {
-  breadcrumbs?: JSX.Element
+  breadcrumbs?: JSX.Element;
 }
 
 export function Header(props: Props) {

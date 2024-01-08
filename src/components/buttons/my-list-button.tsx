@@ -5,10 +5,11 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {AuthorizationSelector} from '../../store/authorization/selectors';
 import {fetchFavoriteFilms, postFilmStatus} from '../../store/films/api';
 import {FilmsSelector} from '../../store/films/selectors';
+import {TFilmCard} from '../../types';
 
 
 type Props = {
-  filmId: string
+  filmId: string;
 }
 
 export function MyListButton(props: Props) {
@@ -16,7 +17,7 @@ export function MyListButton(props: Props) {
   const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   const favoriteFilms = useAppSelector(FilmsSelector.favorite);
   const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
-  const isFavoriteFilm = favoriteFilms?.find((film) => film.id === filmId);
+  const isFavoriteFilm = favoriteFilms?.find((film: TFilmCard) => film.id === filmId);
   const countOfFavoriteFilms = favoriteFilms?.length;
   const newStatusOfFilm = isFavoriteFilm
     ? FilmStatus.deleteFromFavorite

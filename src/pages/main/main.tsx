@@ -29,7 +29,7 @@ export function Main() {
     dispatch(fetchPromoFilm());
   }, [dispatch, enqueueSnackbar]);
   const filtredFilms = useFiltredFilms();
-let filmPromoContent = null;
+  let filmPromoContent = null;
   if (promoFilm) {
     const {name, genre, released, backgroundImage, posterImage, videoLink, id} = promoFilm;
     filmPromoContent = (
@@ -66,7 +66,7 @@ let filmPromoContent = null;
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-		  {loading && <Loader/>}
+          {loading && <Loader/>}
           {!loading && (
             <>
               {films && <ListOfGenres films={films}/>}

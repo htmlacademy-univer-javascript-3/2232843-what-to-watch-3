@@ -2,8 +2,8 @@ import {useEffect, useRef} from 'react';
 
 
 type Props = {
-  src: string,
-  preview: string
+  src: string;
+  preview: string;
 }
 
 export function VideoPlayer(props: Props) {

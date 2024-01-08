@@ -7,9 +7,9 @@ import {useNavigate} from 'react-router-dom';
 
 
 type Props = TFilmCard & {
-  onMouseEnter?: () => void,
-  onMouseLeave?: () => void,
-  isActive: boolean
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  isActive: boolean;
 };
 
 export const FilmCard = memo((props: Props) => {

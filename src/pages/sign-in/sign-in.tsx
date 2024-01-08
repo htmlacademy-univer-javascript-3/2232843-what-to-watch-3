@@ -7,12 +7,12 @@ import {postLogin} from '../../store/authorization/api';
 
 
 interface CustomElements extends HTMLFormControlsCollection {
-  'user-email': HTMLInputElement,
-  'user-password': HTMLInputElement
+  'user-email': HTMLInputElement;
+  'user-password': HTMLInputElement;
 }
 
 interface CustomForm extends HTMLFormElement {
-  readonly elements: CustomElements
+  readonly elements: CustomElements;
 }
 
 export function SignIn() {

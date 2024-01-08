@@ -9,7 +9,7 @@ const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 400;
 
 type Props = {
-  filmId: string
+  filmId: string;
 }
 
 export function ReviewForm(props: Props) {
@@ -73,7 +73,7 @@ export function ReviewForm(props: Props) {
           id="comment"
           placeholder="Review text"
           onChange={handleChange}
-		  minLength={MIN_COMMENT_LENGTH}
+          minLength={MIN_COMMENT_LENGTH}
           maxLength={MAX_COMMENT_LENGTH}
         />
         <div className="add-review__submit">

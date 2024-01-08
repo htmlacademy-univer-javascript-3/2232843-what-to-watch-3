@@ -1,7 +1,6 @@
 import {usePlayer} from '../../hooks';
 
 
-
 export function Player() {
   const {
     videoRef,
@@ -35,16 +34,8 @@ export function Player() {
 
       <div className="player__controls">
         <div className="player__controls-row">
-		  <div
-            className="player__time"
-            ref={sliderRef}
-            onClick={handleProgressClick}
-          >
-            <progress
-              className="player__progress"
-              value={progress}
-              max={100}
-            />
+          <div className="player__time" ref={sliderRef} onClick={handleProgressClick}>
+            <progress className="player__progress" value={progress} max={100}/>
             <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">{timeLeft}</div>

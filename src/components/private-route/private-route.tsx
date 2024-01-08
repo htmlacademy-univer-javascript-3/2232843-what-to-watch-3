@@ -6,8 +6,8 @@ import {AuthorizationSelector} from '../../store/authorization/selectors';
 
 
 type Props = {
-  children: JSX.Element,
-  navigateTo?: string
+  children: JSX.Element;
+  navigateTo?: string;
 };
 
 export function PrivateRoute(props: Props): JSX.Element {

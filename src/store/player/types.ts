@@ -1,3 +1,3 @@
 export type State = {
-  videoLink: string | undefined
+  videoLink: string | undefined;
 }
