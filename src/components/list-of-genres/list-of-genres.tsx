@@ -8,7 +8,7 @@ import './list-of-genres.css';
 
 
 type Props = {
-  films: TFilmCard[]
+  films: TFilmCard[];
 }
 
 export function ListOfGenres(props: Props) {

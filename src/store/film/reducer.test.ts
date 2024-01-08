@@ -1,4 +1,4 @@
-import {TComment, TFilm, TFilmCard, TFilmPromo} from 'src/types';
+import {TComment, TFilm, TFilmCard, TFilmPromo} from '../../types';
 import {updateFilm, updateFilmComments, updateFilmsSimilar, updatePromoFilm} from './action';
 import {film} from './reducer';
 
@@ -22,10 +22,10 @@ describe('film reducer', () => {
       released: 1994,
       videoLink: 'https://example.com/pulp-fiction-preview.mp4'
     };
-	
+
     const action = updatePromoFilm(filmPromo);
     const actualState = film(initialState, action);
-	
+
     expect(actualState.promo).toEqual(filmPromo);
   });
 
@@ -45,9 +45,9 @@ describe('film reducer', () => {
       runTime: 186,
       scoresCount: 65829,
       starring: ['Some Actor', 'Another Actor', 'And Another One'],
-      videoLink: 'https://example.com/pulp-fiction.mp4'
+      videoSrc: 'https://example.com/pulp-fiction.mp4'
     };
-	
+
     const action = updateFilm(filmData);
     const actualState = film(initialState, action);
 
@@ -62,7 +62,7 @@ describe('film reducer', () => {
       previewImage: 'https://example.com/pulp-fiction-preview.jpg',
       previewVideoLink: 'https://example.com/pulp-fiction-preview.mp4'
     }];
-	
+
     const action = updateFilmsSimilar(similarFilms);
     const actualState = film(initialState, action);
 
@@ -77,7 +77,7 @@ describe('film reducer', () => {
       rating: 9,
       user: 'Some Nickname'
     }];
-	
+
     const action = updateFilmComments(comments);
     const actualState = film(initialState, action);
 

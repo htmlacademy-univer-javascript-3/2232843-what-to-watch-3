@@ -1,19 +1,18 @@
-import {TFilm} from '../../../types';
+import {TFilm} from '../../types';
 
 
 type Props = {
-  film: TFilm
+  film: TFilm;
 }
 
 export function TabOverview(props: Props) {
-  const {film} = props;
   const {
     rating,
     scoresCount,
     director,
     starring,
     description
-  } = film;
+  } = props.film;
   return (
     <>
       <div className="film-rating">

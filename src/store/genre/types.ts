@@ -1,3 +1,3 @@
 export type State = {
-  genre: string
+  genre: string;
 }

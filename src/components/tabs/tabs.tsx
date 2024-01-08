@@ -8,12 +8,11 @@ import {Tab, TABS} from './constants';
 
 
 type Props = {
-  film: TFilm
+  film: TFilm;
 }
 
 export function Tabs(props: Props) {
-  const {film} = props;
-  const {reviews} = film;
+  const film = props.film;
   const {pathname, hash} = useLocation();
   const [currentTab, setCurrentTab] = useState(hash || Tab.overview);
   useEffect(() => {
@@ -47,7 +46,7 @@ export function Tabs(props: Props) {
         </ul>
       </nav>
       {currentTab === Tab.overview && <TabOverview film={film}/>}
-      {currentTab === Tab.reviews && <TabReviews reviews={reviews}/>}
+      {currentTab === Tab.reviews && <TabReviews/>}
       {currentTab === Tab.details && <TabDetails film={film}/>}
     </>
   );

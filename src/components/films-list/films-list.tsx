@@ -4,7 +4,7 @@ import {TFilmCard} from '../../types';
 
 
 type Props = {
-  films: TFilmCard[]
+  films: TFilmCard[];
 }
 
 const COUNT_OF_SHOWN_FILMS = 8;
@@ -19,7 +19,7 @@ export function FilmsList(props: Props) {
   const handleMouseLeave = useCallback(() => {
     setActiveFilm(null);
   }, []);
-    const handleShowMore = useCallback(() => {
+  const handleShowMore = useCallback(() => {
     setCountOfFilmsShown((state) => state + COUNT_OF_SHOWN_FILMS);
   }, []);
   const showButton = films.length > countOfFilmsShown;

@@ -7,7 +7,7 @@ import {updateVideoLink} from '../../store/player/action';
 
 
 type Props = {
-  videoLink: string
+  videoLink: string;
 }
 
 export function PlayButton(props: Props) {

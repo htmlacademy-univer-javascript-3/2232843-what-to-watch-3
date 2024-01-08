@@ -11,6 +11,7 @@ import {fetchFilmSimilar} from '../../store/film/api';
 import {useFetchFilm} from '../../hooks';
 import {FilmSelector} from '../../store/film/selectors';
 import {AuthorizationSelector} from '../../store/authorization/selectors';
+import {TFilmCard} from '../../types';
 
 
 export function Film() {
@@ -28,7 +29,7 @@ export function Film() {
     return null;
   }
   const moreLikeThis = similarFilms
-    ?.filter((f) => f.genre === film.genre && f.id !== film.id)
+    ?.filter((f: TFilmCard) => f.genre === film.genre && f.id !== film.id)
     .slice(0, 4);
   const {
     name,
@@ -36,7 +37,7 @@ export function Film() {
     genre,
     released,
     posterImage,
-    videoLink
+    videoSrc
   } = film;
   return (
     <>
@@ -55,7 +56,7 @@ export function Film() {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton videoLink={videoLink} />
+                <PlayButton videoLink={videoSrc} />
                 <MyListButton filmId={id}/>
                 {isAuthorized && (
                   <Link
@@ -83,7 +84,7 @@ export function Film() {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-		  {moreLikeThis && <FilmsList films={moreLikeThis}/>}
+          {moreLikeThis && <FilmsList films={moreLikeThis}/>}
         </section>
         <Footer/>
       </div>

@@ -9,9 +9,9 @@ import {FilmStatus} from '../../constants';
 
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'films/fetchList',
   async (_arg, {dispatch, extra: api}) => {
@@ -25,9 +25,9 @@ export const fetchFilms = createAsyncThunk<void, undefined, {
 );
 
 export const fetchFavoriteFilms = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'films/fetchFavorite',
   async (_arg, {dispatch, extra: api}) => {
@@ -41,10 +41,10 @@ export const fetchFavoriteFilms = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postFilmStatus = createAsyncThunk<void, {filmId: string, status: FilmStatus}, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+export const postFilmStatus = createAsyncThunk<void, {filmId: string; status: FilmStatus}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'films/postFilmStatus',
   async (arg, {dispatch, extra: api}) => {

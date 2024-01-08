@@ -10,9 +10,9 @@ import {enqueueSnackbar} from 'notistack';
 
 
 export const fetchPromoFilm = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'film/fetchPromo',
   async (_arg, {rejectWithValue, dispatch, extra: api}) => {
@@ -27,9 +27,9 @@ export const fetchPromoFilm = createAsyncThunk<void, undefined, {
 );
 
 export const fetchFilm = createAsyncThunk<void, string, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'film/fetch',
   async (arg, {dispatch, extra: api}) => {
@@ -39,9 +39,9 @@ export const fetchFilm = createAsyncThunk<void, string, {
 );
 
 export const fetchFilmSimilar = createAsyncThunk<void, string, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'film/fetchSimilar',
   async (arg, {dispatch, extra: api}) => {
@@ -55,9 +55,9 @@ export const fetchFilmSimilar = createAsyncThunk<void, string, {
 );
 
 export const fetchFilmComments = createAsyncThunk<void, string, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'film/fetchComments',
   async (arg, {dispatch, extra: api}) => {
@@ -71,9 +71,9 @@ export const fetchFilmComments = createAsyncThunk<void, string, {
 );
 
 export const postComments = createAsyncThunk<void, TCommentRequest, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'film/postComments',
   async (arg, {rejectWithValue, dispatch, extra: api}) => {

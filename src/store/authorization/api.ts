@@ -9,9 +9,9 @@ import {enqueueSnackbar} from 'notistack';
 
 
 export const getLogin = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'getLogin',
   async (_arg, {dispatch, extra: api}) => {
@@ -26,9 +26,9 @@ export const getLogin = createAsyncThunk<void, undefined, {
 );
 
 export const postLogin = createAsyncThunk<void, TLoginRequest, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'postLogin',
   async (arg, {rejectWithValue, dispatch, extra: api}) => {
@@ -44,9 +44,9 @@ export const postLogin = createAsyncThunk<void, TLoginRequest, {
 );
 
 export const fetchLogout = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
   'fetchLogout',
   async (_arg, {rejectWithValue, dispatch, extra: api}) => {

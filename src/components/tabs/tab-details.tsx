@@ -1,20 +1,19 @@
-import {TFilm} from '../../../types';
+import {TFilm} from '../../types';
 import {getRunTime} from './helpers';
 
 
 type Props = {
-  film: TFilm
+  film: TFilm;
 }
 
 export function TabDetails(props: Props) {
-  const {film} = props;
   const {
     director,
     starring,
     genre,
     released,
     runTime
-  } = film;
+  } = props.film;
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
