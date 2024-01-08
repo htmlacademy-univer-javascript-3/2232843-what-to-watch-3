@@ -44,7 +44,7 @@ describe('film reducer', () => {
       released: 1994,
       runTime: 186,
       scoresCount: 65829,
-      starring: ['Some Actor', 'Another Actor', ['And Another One'],
+      starring: ['Some Actor', 'Another Actor', 'And Another One'],
       videoLink: 'https://example.com/pulp-fiction.mp4'
     };
 	
