@@ -15,6 +15,7 @@ export function Header(props: Props) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(AuthorizationSelector.status);
+  const user = useAppSelector(AuthorizationSelector.user);
   const isAuthorized = authorizationStatus === AuthorizationStatus.authorized;
   const handleClickOnAvatar = useCallback(() => {
     navigate(`/${RoutePathname.myList}`);
@@ -43,7 +44,7 @@ export function Header(props: Props) {
         {isAuthorized && (
           <li className="user-block__item">
             <div className="user-block__avatar" onClick={handleClickOnAvatar}>
-              <img src="img/avatar2.jpg" alt="User avatar" width="63" height="63"/>
+              <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
             </div>
           </li>
         )}

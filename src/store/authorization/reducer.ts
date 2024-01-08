@@ -4,12 +4,14 @@ import {State} from './types';
 
 
 const initialState: State = {
-  status: null
+  status: null,
+  user: null
 };
 
 export const authorization = createReducer(initialState, (builder) => {
   builder
     .addCase(updateAuthorizationStatus, (state, action) => {
-      state.status = action.payload;
+      state.status = action.payload.status;
+      state.user = action.payload.user;
     });
 });

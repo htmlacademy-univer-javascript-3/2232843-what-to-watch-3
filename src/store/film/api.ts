@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {TComment, TCommentRequest, TFilm, TFilmCard, TFilmPromo} from '../../types';
+import {TComment, TCommentRequest, TFilm, TFilmCard, TFilmPromo, TUser} from '../../types';
 import {AuthorizationStatus} from '../../constants';
 import {getSavedToken} from '../../token';
 import {updateAuthorizationStatus} from '../authorization/action';
@@ -85,7 +85,8 @@ export const postComments = createAsyncThunk<void, TCommentRequest, {
         {comment, rating},
         {headers: {'X-Token': token}}
       );
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized));
+      const {data} = await api.get<TUser>('/login', {headers: {'X-Token': token}});
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.authorized, data));
     } catch (e) {
       enqueueSnackbar('Unable to post new review. Try again later', {variant: 'error'});
       return rejectWithValue(e);
