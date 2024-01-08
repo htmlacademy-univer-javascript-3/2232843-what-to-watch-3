@@ -43,7 +43,7 @@ export function Header(props: Props) {
         {isAuthorized && (
           <li className="user-block__item">
             <div className="user-block__avatar" onClick={handleClickOnAvatar}>
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="img/avatar2.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </li>
         )}
