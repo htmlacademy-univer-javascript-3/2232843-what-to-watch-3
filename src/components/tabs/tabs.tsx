@@ -31,12 +31,12 @@ export function Tabs(props: Props) {
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           {TABS.map((tab) => {
-            const className = [
+            const classNames = [
               'film-nav__item',
               currentTab === tab.hash && 'film-nav__item--active'
             ].filter(Boolean).join(' ');
             return (
-              <li key={tab.hash} className={className}>
+              <li key={tab.hash} className={classNames}>
                 <Link to={`${pathname}${tab.hash}`} className="film-nav__link">
                   {tab.title}
                 </Link>

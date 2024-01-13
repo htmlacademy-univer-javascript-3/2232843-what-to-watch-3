@@ -19,7 +19,7 @@ export function FilmsList(props: Props) {
   const handleMouseLeave = useCallback(() => {
     setActiveFilm(null);
   }, []);
-  const handleShowMore = useCallback(() => {
+  const handleShowMoreClick = useCallback(() => {
     setCountOfFilmsShown((state) => state + COUNT_OF_SHOWN_FILMS);
   }, []);
   const showButton = films.length > countOfFilmsShown;
@@ -41,7 +41,7 @@ export function FilmsList(props: Props) {
           <button
             className="catalog__button"
             type="button"
-            onClick={handleShowMore}
+            onClick={handleShowMoreClick}
           >
             Show more
           </button>

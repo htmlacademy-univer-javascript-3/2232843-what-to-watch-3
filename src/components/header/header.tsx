@@ -20,14 +20,14 @@ export function Header(props: Props) {
   const handleClickOnAvatar = useCallback(() => {
     navigate(`/${RoutePathname.myList}`);
   }, [navigate]);
-  const handleLogout = useCallback(() => {
+  const handleLogoutClick = useCallback(() => {
     dispatch(fetchLogout()).then((res) => {
       if (res.meta.requestStatus !== ReduxStateStatus.rejected) {
         navigate(RoutePathname.main);
       }
     });
   }, [navigate, dispatch]);
-  const handleLogin = useCallback(() => {
+  const handleLoginClick = useCallback(() => {
     navigate(`/${RoutePathname.login}`);
   }, [navigate]);
   return (
@@ -50,12 +50,12 @@ export function Header(props: Props) {
         )}
         <li className="user-block__item">
           {isAuthorized && (
-            <div className="user-block__link" onClick={handleLogout}>
+            <div className="user-block__link" onClick={handleLogoutClick}>
               Sign out
             </div>
           )}
           {!isAuthorized && (
-            <div className="user-block__link" onClick={handleLogin}>
+            <div className="user-block__link" onClick={handleLoginClick}>
               Sign in
             </div>
           )}

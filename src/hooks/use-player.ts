@@ -33,10 +33,10 @@ export function usePlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const handleExit = useCallback(() => {
+  const handleExitClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
-  const handleTogglePlay = useCallback(() => {
+  const handleTogglePlayClick = useCallback(() => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -46,7 +46,7 @@ export function usePlayer() {
       setIsPlaying(!isPlaying);
     }
   }, [isPlaying]);
-  const handleToggleFullScreen = useCallback(() => {
+  const handleToggleFullScreenClick = useCallback(() => {
     videoRef.current?.requestFullscreen();
   }, []);
   const handleTimeUpdate = useCallback(() => {
@@ -73,13 +73,13 @@ export function usePlayer() {
     videoRef,
     videoLink,
     handleTimeUpdate,
-    handleExit,
+    handleExit: handleExitClick,
     sliderRef,
     handleProgressClick,
     progress,
-    handleTogglePlay,
+    handleTogglePlay: handleTogglePlayClick,
     isPlaying,
-    handleToggleFullScreen,
+    handleToggleFullScreen: handleToggleFullScreenClick,
     timeLeft
   };
 }
