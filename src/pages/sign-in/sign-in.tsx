@@ -4,6 +4,7 @@ import {RoutePathname, ReduxStateStatus} from '../../constants';
 import {FormEvent, useCallback} from 'react';
 import {useAppDispatch} from '../../store/hooks';
 import {postLogin} from '../../store/authorization/api';
+import {enqueueSnackbar} from 'notistack';
 
 
 interface CustomElements extends HTMLFormControlsCollection {
@@ -23,6 +24,10 @@ export function SignIn() {
     const target = event.currentTarget.elements;
     const email = target['user-email'].value;
     const password = target['user-password'].value;
+    if (email === "" || password === "") {
+      enqueueSnackbar('Enter both login and password to sign in', {variant: 'info'});
+      return null;
+    }
     dispatch(postLogin({email, password})).then((res) => {
       if (res.meta.requestStatus !== ReduxStateStatus.rejected) {
         navigate(RoutePathname.main);

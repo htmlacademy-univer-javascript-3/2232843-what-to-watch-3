@@ -36,7 +36,7 @@ export const fetchFavoriteFilms = createAsyncThunk<void, undefined, {
       const {data: films} = await api.get<TFilmCard[]>('/favorite', {headers: {'X-Token': token}});
       dispatch(updateFavoriteFilms(films));
     } catch (_e) {
-      enqueueSnackbar('Unable to load favorite films. Try again later', {variant: 'error'});
+      enqueueSnackbar('Unable to load favorite films. Sign in first or try again later', {variant: 'info'});
     }
   },
 );
