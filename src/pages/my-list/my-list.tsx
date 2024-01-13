@@ -9,13 +9,13 @@ import {FilmsSelector} from '../../store/films/selectors';
 
 export function MyList() {
   const favoriteFilms = useAppSelector(FilmsSelector.favorite);
+  if (!favoriteFilms) {
+    return null;
+  }
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFavoriteFilms());
   }, [dispatch]);
-  if (!favoriteFilms) {
-    return null;
-  }
   return (
     <div className="user-page">
       <Header />
