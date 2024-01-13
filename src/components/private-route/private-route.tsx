@@ -11,9 +11,9 @@ type Props = {
 };
 
 export function PrivateRoute(props: Props): JSX.Element {
-  const {children, navigateTo = RoutePathname.main} = props;
+  const {children, navigateTo = RoutePathname.login} = props;
   const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   return authorizationStatus === AuthorizationStatus.notAuthorized
-    ? <Navigate to={navigateTo} />
+    ? <Navigate to={`/${navigateTo}`} />
     : children;
 }

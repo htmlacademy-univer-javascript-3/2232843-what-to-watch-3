@@ -44,7 +44,7 @@ function Router() {
         <Route
           path={`${RoutePathname.films}/:id/${RoutePathname.review}`}
           element={(
-            <PrivateRoute navigateTo={`/${RoutePathname.login}`}>
+            <PrivateRoute navigateTo={`${RoutePathname.login}`}>
               <AddReview/>
             </PrivateRoute>
           )}

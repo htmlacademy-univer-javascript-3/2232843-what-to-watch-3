@@ -2,6 +2,7 @@ import {MouseEvent, useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../store/hooks';
 import {PlayerSelector} from '../store/player/selectors';
+import {RoutePathname} from '../constants';
 
 
 function getLeftTime(duration: number, currentTime: number) {
@@ -21,17 +22,21 @@ function getLeftTime(duration: number, currentTime: number) {
 }
 
 export function usePlayer() {
+  const navigate = useNavigate();
   const videoLink = useAppSelector(PlayerSelector.videoLink);
+  if (!videoLink) {
+    navigate(`${RoutePathname.main}`);
+  }
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [timeLeft, setTimeLeft] = useState<null | string>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-  const handleExit = useCallback(() => {
+
+  const handleExitClick = useCallback(() => {
     navigate(-1);
   }, [navigate]);
-  const handleTogglePlay = useCallback(() => {
+  const handleTogglePlayClick = useCallback(() => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -41,7 +46,7 @@ export function usePlayer() {
       setIsPlaying(!isPlaying);
     }
   }, [isPlaying]);
-  const handleToggleFullScreen = useCallback(() => {
+  const handleToggleFullScreenClick = useCallback(() => {
     videoRef.current?.requestFullscreen();
   }, []);
   const handleTimeUpdate = useCallback(() => {
@@ -52,15 +57,17 @@ export function usePlayer() {
       setTimeLeft(getLeftTime(duration, currentTime));
     }
   }, []);
+  const maxProgress = 100;
   const handleProgressClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
     if (videoRef.current && sliderRef.current) {
-      const newProgress = (e.clientX - 25) / sliderRef.current.clientWidth;
-      setProgress(newProgress * 100);
+      const rect = sliderRef.current.getBoundingClientRect();
+      const newProgress = (e.clientX - rect.left) / sliderRef.current.clientWidth;
+      setProgress(newProgress * maxProgress);
       videoRef.current.currentTime = videoRef.current.duration * newProgress;
     }
   }, []);
   useEffect(() => {
-    if (progress === 100) {
+    if (progress === maxProgress) {
       setIsPlaying(false);
     }
   }, [progress]);
@@ -68,13 +75,13 @@ export function usePlayer() {
     videoRef,
     videoLink,
     handleTimeUpdate,
-    handleExit,
+    handleExit: handleExitClick,
     sliderRef,
     handleProgressClick,
     progress,
-    handleTogglePlay,
+    handleTogglePlay: handleTogglePlayClick,
     isPlaying,
-    handleToggleFullScreen,
+    handleToggleFullScreen: handleToggleFullScreenClick,
     timeLeft
   };
 }

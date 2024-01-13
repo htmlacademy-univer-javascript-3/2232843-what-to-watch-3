@@ -12,6 +12,8 @@ import {fetchFilms} from '../../store/films/api';
 import {fetchPromoFilm} from '../../store/film/api';
 import {FilmsSelector} from '../../store/films/selectors';
 import {FilmSelector} from '../../store/film/selectors';
+import {useNavigate} from 'react-router-dom';
+import {RoutePathname} from '../../constants';
 
 
 export function Main() {
@@ -29,6 +31,14 @@ export function Main() {
     dispatch(fetchPromoFilm());
   }, [dispatch, enqueueSnackbar]);
   const filtredFilms = useFiltredFilms();
+  const navigate = useNavigate();
+
+  const handlePromoFilmClick = () => {
+    if (promoFilm) {
+      navigate(`${RoutePathname.films}/${promoFilm.id}`);
+    }
+  };
+
   let filmPromoContent = null;
   if (promoFilm) {
     const {name, genre, released, backgroundImage, posterImage, videoLink, id} = promoFilm;
@@ -41,11 +51,11 @@ export function Main() {
         <Header/>
         <div className="film-card__wrap">
           <div className="film-card__info">
-            <div className="film-card__poster">
+            <div className="film-card__poster" onClick={handlePromoFilmClick}>
               <img src={posterImage} alt="Film poster" width="218" height="327" />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{name}</h2>
+              <h2 className="film-card__title" onClick={handlePromoFilmClick}>{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>

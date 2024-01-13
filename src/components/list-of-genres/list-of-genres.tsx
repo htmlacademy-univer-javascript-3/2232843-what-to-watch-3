@@ -27,12 +27,12 @@ export function ListOfGenres(props: Props) {
   return (
     <ul className="catalog__genres-list">
       {listOfGenres.map((filmGenre) => {
-        const className = [
+        const classNames = [
           'catalog__genres-item',
           filmGenre === genre && 'catalog__genres-item--active'
         ].filter(Boolean).join(' ');
         return (
-          <li key={filmGenre} className={className}>
+          <li key={filmGenre} className={classNames}>
             <button
               type="button"
               onClick={handleClick(filmGenre)}

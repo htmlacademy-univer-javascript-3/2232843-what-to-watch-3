@@ -7,6 +7,7 @@ import {useAppDispatch} from '../../store/hooks';
 
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 400;
+const RATING_SYSTEM = 10;
 
 type Props = {
   filmId: string;
@@ -42,8 +43,8 @@ export function ReviewForm(props: Props) {
     <form className="add-review__form" onSubmit={handleSubmit}>
       <div className="rating">
         <div className="rating__stars">
-          {Array.from({length: 10}).map((_, index) => {
-            const value = 10 - index;
+          {Array.from({length: RATING_SYSTEM}).map((_, index) => {
+            const value = RATING_SYSTEM - index;
             return (
               <Fragment key={value}>
                 <input
