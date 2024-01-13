@@ -24,7 +24,7 @@ export function SignIn() {
     const target = event.currentTarget.elements;
     const email = target['user-email'].value;
     const password = target['user-password'].value;
-    if (email === "" || password === "") {
+    if (email === '' || password === '') {
       enqueueSnackbar('Enter both login and password to sign in', {variant: 'info'});
       return null;
     }

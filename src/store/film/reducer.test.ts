@@ -45,7 +45,7 @@ describe('film reducer', () => {
       runTime: 186,
       scoresCount: 65829,
       starring: ['Some Actor', 'Another Actor', 'And Another One'],
-      videoSrc: 'https://example.com/pulp-fiction.mp4'
+      videoLink: 'https://example.com/pulp-fiction.mp4'
     };
 
     const action = updateFilm(filmData);

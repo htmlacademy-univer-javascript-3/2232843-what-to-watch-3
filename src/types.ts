@@ -21,7 +21,7 @@ export type TFilm = {
   runTime: number;
   scoresCount: number;
   starring: string[];
-  videoSrc: string;
+  videoLink: string;
 }
 
 export type TFilmCard = {
