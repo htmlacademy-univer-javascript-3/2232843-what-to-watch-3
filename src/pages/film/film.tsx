@@ -37,7 +37,7 @@ export function Film() {
     genre,
     released,
     posterImage,
-    videoSrc
+    videoLink
   } = film;
   return (
     <>
@@ -56,7 +56,7 @@ export function Film() {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton videoLink={videoSrc} />
+                <PlayButton videoLink={videoLink} />
                 <MyListButton filmId={id}/>
                 {isAuthorized && (
                   <Link
