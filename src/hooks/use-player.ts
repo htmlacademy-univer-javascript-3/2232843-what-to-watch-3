@@ -57,15 +57,17 @@ export function usePlayer() {
       setTimeLeft(getLeftTime(duration, currentTime));
     }
   }, []);
+  const maxProgress = 100;
   const handleProgressClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
     if (videoRef.current && sliderRef.current) {
-      const newProgress = (e.clientX - 25) / sliderRef.current.clientWidth;
-      setProgress(newProgress * 100);
+      const rect = sliderRef.current.getBoundingClientRect();
+      const newProgress = (e.clientX - rect.left) / sliderRef.current.clientWidth;
+      setProgress(newProgress * maxProgress);
       videoRef.current.currentTime = videoRef.current.duration * newProgress;
     }
   }, []);
   useEffect(() => {
-    if (progress === 100) {
+    if (progress === maxProgress) {
       setIsPlaying(false);
     }
   }, [progress]);
