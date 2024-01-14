@@ -4,6 +4,7 @@ import {RoutePathname, AuthorizationStatus, ReduxStateStatus} from '../../consta
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {fetchLogout} from '../../store/authorization/api';
 import {AuthorizationSelector} from '../../store/authorization/selectors';
+import {updateFilm} from '../../store/film/action';
 
 
 type Props = {
@@ -33,7 +34,9 @@ export function Header(props: Props) {
   return (
     <header className="page-header film-card__head">
       <div className="logo">
-        <Link to={RoutePathname.main} className="logo__link">
+        <Link to={RoutePathname.main} className="logo__link" onClick={() => {
+          dispatch(updateFilm(null));
+        }}>
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>

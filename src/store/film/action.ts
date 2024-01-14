@@ -18,7 +18,7 @@ export const updatePromoFilm = createAction(
 
 export const updateFilm = createAction(
   Action.UPDATE_FILM,
-  (value: TFilm): { payload: TFilm } => ({
+  (value: TFilm | null): { payload: TFilm | null } => ({
     payload: value
   })
 );
