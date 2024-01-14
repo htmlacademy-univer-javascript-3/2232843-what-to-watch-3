@@ -1,9 +1,12 @@
 import {MouseEvent, useCallback, useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../store/hooks';
-import {PlayerSelector} from '../store/player/selectors';
-import {RoutePathname} from '../constants';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {ReduxStateStatus, RoutePathname} from '../constants';
+import {FilmSelector} from '../store/film/selectors';
+import {fetchFilm} from '../store/film/api';
 
+
+const MAX_PROGRESS = 100;
 
 function getLeftTime(duration: number, currentTime: number) {
   const hours = Math.floor(duration / (60 * 60));
@@ -22,11 +25,20 @@ function getLeftTime(duration: number, currentTime: number) {
 }
 
 export function usePlayer() {
+  const {id = ''} = useParams();
+  const film = useAppSelector(FilmSelector.film);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const videoLink = useAppSelector(PlayerSelector.videoLink);
-  if (!videoLink) {
-    navigate(`${RoutePathname.main}`);
-  }
+
+  useEffect(() => {
+    dispatch(fetchFilm(id))
+      .then((res) => {
+        if (res.meta.requestStatus === ReduxStateStatus.rejected) {
+          navigate(`/${RoutePathname.notFound}`);
+        }
+      });
+  }, [id, navigate, dispatch]);
+  const videoLink = film?.videoLink;
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [timeLeft, setTimeLeft] = useState<null | string>(null);
@@ -57,17 +69,16 @@ export function usePlayer() {
       setTimeLeft(getLeftTime(duration, currentTime));
     }
   }, []);
-  const maxProgress = 100;
   const handleProgressClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
     if (videoRef.current && sliderRef.current) {
       const rect = sliderRef.current.getBoundingClientRect();
       const newProgress = (e.clientX - rect.left) / sliderRef.current.clientWidth;
-      setProgress(newProgress * maxProgress);
+      setProgress(newProgress * MAX_PROGRESS);
       videoRef.current.currentTime = videoRef.current.duration * newProgress;
     }
   }, []);
   useEffect(() => {
-    if (progress === maxProgress) {
+    if (progress === MAX_PROGRESS) {
       setIsPlaying(false);
     }
   }, [progress]);

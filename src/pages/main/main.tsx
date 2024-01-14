@@ -41,7 +41,7 @@ export function Main() {
 
   let filmPromoContent = null;
   if (promoFilm) {
-    const {name, genre, released, backgroundImage, posterImage, videoLink, id} = promoFilm;
+    const {name, genre, released, backgroundImage, posterImage, id} = promoFilm;
     filmPromoContent = (
       <section className="film-card">
         <div className="film-card__bg">
@@ -61,7 +61,7 @@ export function Main() {
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton videoLink={videoLink}/>
+                <PlayButton filmId={promoFilm.id}/>
                 <MyListButton filmId={id}/>
               </div>
             </div>

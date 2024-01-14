@@ -50,7 +50,7 @@ function Router() {
           )}
         />
         <Route
-          path={RoutePathname.player}
+          path={`${RoutePathname.player}/:id`}
           element={<Player/>}
         />
       </Route>

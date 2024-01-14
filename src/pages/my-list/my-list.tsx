@@ -5,25 +5,25 @@ import {useEffect} from 'react';
 import {fetchFavoriteFilms} from '../../store/films/api';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {FilmsSelector} from '../../store/films/selectors';
+import {AuthorizationSelector} from '../../store/authorization/selectors';
+import {AuthorizationStatus} from '../../constants';
 
 
 export function MyList() {
-  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(AuthorizationSelector.status);
   const favoriteFilms = useAppSelector(FilmsSelector.favorite);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    if (favoriteFilms) {
+    if (authorizationStatus === AuthorizationStatus.authorized) {
       dispatch(fetchFavoriteFilms());
     }
-  }, [dispatch]);
-  if (!favoriteFilms) {
-    return null;
-  }
+  }, [dispatch, authorizationStatus]);
   return (
     <div className="user-page">
       <Header />
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmsList films={favoriteFilms}/>
+        <FilmsList films={favoriteFilms ?? []}/>
       </section>
       <Footer />
     </div>
