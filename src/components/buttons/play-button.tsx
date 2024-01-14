@@ -3,21 +3,19 @@ import {RoutePathname} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {updateVideoLink} from '../../store/player/action';
 
 
 type Props = {
-  videoLink: string;
+  filmId: string;
 }
 
 export function PlayButton(props: Props) {
-  const {videoLink} = props;
+  const {filmId} = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
-    dispatch(updateVideoLink(videoLink));
-    navigate(`/${RoutePathname.player}`);
-  }, [dispatch, videoLink, navigate]);
+    navigate(`/${RoutePathname.player}/${filmId}`);
+  }, [dispatch, filmId, navigate]);
   return (
     <Button
       className="btn--play"

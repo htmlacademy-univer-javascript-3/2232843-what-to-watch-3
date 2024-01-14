@@ -1,8 +1,9 @@
 import {MouseEvent, useCallback, useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../store/hooks';
-import {PlayerSelector} from '../store/player/selectors';
-import {RoutePathname} from "../constants";
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {ReduxStateStatus, RoutePathname} from "../constants";
+import {FilmSelector} from "../store/film/selectors.ts";
+import {fetchFilm} from "../store/film/api.ts";
 
 
 function getLeftTime(duration: number, currentTime: number) {
@@ -22,13 +23,20 @@ function getLeftTime(duration: number, currentTime: number) {
 }
 
 export function usePlayer() {
+  const {id = ''} = useParams();
+  const film = useAppSelector(FilmSelector.film);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const videoLink = useAppSelector(PlayerSelector.videoLink);
+
   useEffect(() => {
-    if (!videoLink) {
-      navigate(`${RoutePathname.main}`);
-    }
-  })
+    dispatch(fetchFilm(id))
+      .then((res) => {
+        if (res.meta.requestStatus === ReduxStateStatus.rejected) {
+          navigate(`/${RoutePathname.notFound}`);
+        }
+      });
+  }, [id, navigate, dispatch]);
+  const videoLink = film?.videoLink;
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [timeLeft, setTimeLeft] = useState<null | string>(null);
