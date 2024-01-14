@@ -6,6 +6,8 @@ import {FilmSelector} from "../store/film/selectors.ts";
 import {fetchFilm} from "../store/film/api.ts";
 
 
+const MAX_PROGRESS = 100;
+
 function getLeftTime(duration: number, currentTime: number) {
   const hours = Math.floor(duration / (60 * 60));
   let leftSeconds = duration - currentTime;
@@ -67,17 +69,16 @@ export function usePlayer() {
       setTimeLeft(getLeftTime(duration, currentTime));
     }
   }, []);
-  const maxProgress = 100;
   const handleProgressClick = useCallback((e: MouseEvent<HTMLDivElement>) => {
     if (videoRef.current && sliderRef.current) {
       const rect = sliderRef.current.getBoundingClientRect();
       const newProgress = (e.clientX - rect.left) / sliderRef.current.clientWidth;
-      setProgress(newProgress * maxProgress);
+      setProgress(newProgress * MAX_PROGRESS);
       videoRef.current.currentTime = videoRef.current.duration * newProgress;
     }
   }, []);
   useEffect(() => {
-    if (progress === maxProgress) {
+    if (progress === MAX_PROGRESS) {
       setIsPlaying(false);
     }
   }, [progress]);
