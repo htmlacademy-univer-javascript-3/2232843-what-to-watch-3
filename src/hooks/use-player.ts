@@ -2,7 +2,7 @@ import {MouseEvent, useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useAppSelector} from '../store/hooks';
 import {PlayerSelector} from '../store/player/selectors';
-import {RoutePathname} from '../constants';
+import {RoutePathname} from "../constants";
 
 
 function getLeftTime(duration: number, currentTime: number) {
@@ -24,9 +24,11 @@ function getLeftTime(duration: number, currentTime: number) {
 export function usePlayer() {
   const navigate = useNavigate();
   const videoLink = useAppSelector(PlayerSelector.videoLink);
-  if (!videoLink) {
-    navigate(`${RoutePathname.main}`);
-  }
+  useEffect(() => {
+    if (!videoLink) {
+      navigate(`${RoutePathname.main}`);
+    }
+  })
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [timeLeft, setTimeLeft] = useState<null | string>(null);
