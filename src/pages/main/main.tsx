@@ -14,6 +14,7 @@ import {FilmsSelector} from '../../store/films/selectors';
 import {FilmSelector} from '../../store/film/selectors';
 import {useNavigate} from 'react-router-dom';
 import {RoutePathname} from '../../constants';
+import {updateFilm} from '../../store/film/action';
 
 
 export function Main() {
@@ -29,6 +30,7 @@ export function Main() {
         setLoading(false);
       });
     dispatch(fetchPromoFilm());
+    dispatch(updateFilm(null));
   }, [dispatch, enqueueSnackbar]);
   const filtredFilms = useFiltredFilms();
   const navigate = useNavigate();
