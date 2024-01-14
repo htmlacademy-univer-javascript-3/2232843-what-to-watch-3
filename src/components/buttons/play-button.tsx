@@ -1,6 +1,5 @@
 import {Button} from './button';
 import {RoutePathname} from '../../constants';
-import {useAppDispatch} from '../../store/hooks';
 import {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -11,11 +10,10 @@ type Props = {
 
 export function PlayButton(props: Props) {
   const {filmId} = props;
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
     navigate(`/${RoutePathname.player}/${filmId}`);
-  }, [dispatch, filmId, navigate]);
+  }, [filmId, navigate]);
   return (
     <Button
       className="btn--play"

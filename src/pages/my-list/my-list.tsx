@@ -5,8 +5,8 @@ import {useEffect} from 'react';
 import {fetchFavoriteFilms} from '../../store/films/api';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {FilmsSelector} from '../../store/films/selectors';
-import {AuthorizationSelector} from "../../store/authorization/selectors";
-import {AuthorizationStatus} from "../../constants";
+import {AuthorizationSelector} from '../../store/authorization/selectors';
+import {AuthorizationStatus} from '../../constants';
 
 
 export function MyList() {
@@ -14,7 +14,7 @@ export function MyList() {
   const favoriteFilms = useAppSelector(FilmsSelector.favorite);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (authorizationStatus == AuthorizationStatus.authorized) {
+    if (authorizationStatus === AuthorizationStatus.authorized) {
       dispatch(fetchFavoriteFilms());
     }
   }, [dispatch, authorizationStatus]);

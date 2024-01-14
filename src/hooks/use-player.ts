@@ -1,9 +1,9 @@
 import {MouseEvent, useCallback, useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
-import {ReduxStateStatus, RoutePathname} from "../constants";
-import {FilmSelector} from "../store/film/selectors.ts";
-import {fetchFilm} from "../store/film/api.ts";
+import {ReduxStateStatus, RoutePathname} from '../constants';
+import {FilmSelector} from '../store/film/selectors';
+import {fetchFilm} from '../store/film/api';
 
 
 const MAX_PROGRESS = 100;
