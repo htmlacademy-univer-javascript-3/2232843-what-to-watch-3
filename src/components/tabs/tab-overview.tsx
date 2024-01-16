@@ -1,4 +1,5 @@
 import {TFilm} from '../../types';
+import {convertFilmRatingToLevel} from './helpers';
 
 
 type Props = {
@@ -18,7 +19,7 @@ export function TabOverview(props: Props) {
       <div className="film-rating">
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
+          <span className="film-rating__level">{convertFilmRatingToLevel(rating || 0)}</span>
           <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
